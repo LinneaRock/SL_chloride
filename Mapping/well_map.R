@@ -1,7 +1,6 @@
 library(sf)
 library(tidyverse)
 library(ggspatial)
-library(patchwork)
 library(raster)
 
 
