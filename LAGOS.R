@@ -29,9 +29,9 @@ iws.sf.SL <- read_rds("Data/shapefiles/IWS.rds")
 world_gray <- paste0('https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/${z}/${y}/${x}.jpeg')
 
 
-ggplot() + 
-  annotation_map_tile(type = world_gray, zoom = 12) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
-  geom_sf(data = iws.sf.SL) + 
+ggplot(gw_wells.sf) + 
+  annotation_map_tile(type = world_gray, zoom = 15) + # Esri Basemap (zoom sets level of detail, higher = higherRes)
+  geom_sf(data = iws.sf.SL, fill = NA) + 
   theme_bw() + # Hilary's default theme
   theme(legend.position = c(0.9,0.85)) +
   annotation_scale(location = "br", width_hint = 0.5,height = unit(0.05,'in')) + # Scale bar
@@ -39,5 +39,5 @@ ggplot() +
                          # pad_x = unit(0.2, "in"), pad_y = unit(0.2, "in"),
                          height = unit(0.5,'in'), width = unit(0.5,'in'),
                          style = north_arrow_nautical) + # North Arrow
-  coord_sf(datum = NA, ylim = c(46.0, 46.2), xlim = c(-89.69, -89.55), expand = FALSE) # limit axes
+  coord_sf(datum = NA, ylim = c(45.99, 46.02), xlim = c(-89.72, -89.68), expand = FALSE) # limit axes
 
