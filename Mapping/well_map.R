@@ -26,5 +26,5 @@ ggplot(gw_wells.sf) +
                          style = north_arrow_nautical) + # North Arrow
   coord_sf(datum = NA, ylim = c(46.00, 46.016), xlim = c(-89.705, -89.69), expand = FALSE)  #limit axes
 
- ggsave("Plots/Map.png", width = 6, height = 6, units = "in")
+ ggsave("Plots/WellMap.png", width = 6, height = 6, units = "in")
  
