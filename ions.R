@@ -1,6 +1,7 @@
 library(tidyverse)
 library(lubridate)
 library(patchwork)
+library(ggpmisc)
 source("Functions/ion_plot.R")
 source("Functions/L_theme.R")
 
@@ -27,16 +28,20 @@ all_ions #This does not include the specific conductivity plot
 
 ggsave("Plots/all_ions.png", height = 8, width = 10, units = "in")
 
+cl + geom_smooth(method = lm, se = FALSE)
 
 #Plot of ratio of Na:Cl over time 
 ratio <- LTER %>%
-  select(sampledate, na, cl) %>%
+  select(sampledate, depth, na, cl) %>%
   mutate(Ratio = na / cl) %>%
-  na.omit(cl)
+  na.omit(cl) %>%
+  filter(Ratio < 1)
 
-ion(ratio, ratio$Ratio, "Na:Cl Ratio") + L_theme()
-
-ggplot(ratio, aes(cl, na)) + L_theme() +
+ggplot(ratio, aes(sampledate, Ratio, color = depth)) + 
   geom_point() +
-  labs(x = "Chloride Concentration"~(mg~L^-1),
-       y = "Sodium Concentration"~(mg~L^-1))
+  L_theme() +
+  labs(x = "", y = "Na:Cl Concentration Ratio", color = "Depth (m)") +
+  scale_color_viridis_c(trans = "reverse") +
+  theme(legend.title = element_text())
+
+ggsave("Plots/nacl_ratio.png", height = 4, width = 6, units = 'in')
